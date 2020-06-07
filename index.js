@@ -15,10 +15,10 @@ var io = require('socket.io')(server);
 server.listen(8080);
 
 var conn = mysql.createConnection({
-      host    : 'bsywt8xxwecvkrkhr23n-mysql.services.clever-cloud.com',
-      user    : 'usu17j382kwvccl2',
-      password: 'cujVo7AgzcaJf671v3bc',
-      database: 'bsywt8xxwecvkrkhr23n',
+      host    : 'bvfopzmpe3wvyhzvzip2-mysql.services.clever-cloud.com',
+      user    : 'uo2i94d6ddzrqmqy',
+      password: 'n4ZKdalk4QVP3KqgfdFc',
+      database: 'bvfopzmpe3wvyhzvzip2',
 });
 
 /*---------------------------------------------------------------------------*/
