@@ -16,7 +16,7 @@ var conn = mysql.createConnection({
       user    : 'uo2i94d6ddzrqmqy',
       password: 'n4ZKdalk4QVP3KqgfdFc',
       database: 'bvfopzmpe3wvyhzvzip2',
-      timezone: '+0700'
+      timezone: 'utc+7'
 });
 let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, temp INT(10), gas INT(10), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE = InnoDB' ;
 
