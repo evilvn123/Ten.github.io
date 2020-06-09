@@ -7,12 +7,10 @@
 <script>
 	var socket = io("https://taducminh.cleverapps.io/");
 	$(document).ready(function(){
-
-		//socket.emit("mode", "abcd");
-		$("#btnMode").click(function(){
+		$("#btnSend").click(function(){
 			//socket.emit("mode", "abc");
 			//var a = $("input[name='txtMode']").val();
-			socket.emit("mode", $("input[name='txtMode']").val());
+			socket.emit("data", {temp: $("input[name='txtValue']").val(), gas:$("input[name='txtValue']").val()*10 });
 			alert("nhan button");
 		});
 	});
@@ -21,7 +19,7 @@
 </head>
 <body>
 	helloworld!
-	<input type="text" name="txtMode" />
-	<input type="button" id="btnMode" value="Mode" />
+	<input type="text" name="txtValue" />
+	<input type="button" id="btnSend" value="Send" />
 </body>
 </html>
