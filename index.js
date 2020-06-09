@@ -40,7 +40,7 @@ io.on('connection', function(socket){
 		
 		//var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
 		//var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
-		let todo = [data_json.temp, data_json.gas,'2020-06-10 1:59:10'];
+		let todo = [data.temp, data.gas,'2020-06-10 1:59:10'];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
