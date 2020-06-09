@@ -10,7 +10,7 @@
 		$("#btnSend").click(function(){
 			//socket.emit("mode", "abc");
 			//var a = $("input[name='txtMode']").val();
-			socket.emit("data", {temp: $("input[name='txtValue']").val(), gas:$("input[name='txtValue']").val()*10 });
+			socket.emit("data", {temp: $("input[name='txtValue']").val(), gas:$("input[name='txtValue']").val() });
 			alert("nhan button");
 		});
 	});
