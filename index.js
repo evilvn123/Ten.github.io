@@ -1,7 +1,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
-const moment = require('moment-timezone');
+//const moment = require('moment-timezone');
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -34,12 +34,12 @@ io.on('connection', function(socket){
 
 	socket.on('data', function(data){
 		console.log('message: ' + data);
-		var now= moment();
+		//var now= moment();
 		let sql1 = `INSERT INTO data (temp, gas) values (?,?,?)` ;
 		
-		var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
-		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
-		let todo = [data.temp, data.gas,time];
+		//var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
+		//var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
+		let todo = [data.temp, data.gas,'2020-06-10 1:59:10'];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
