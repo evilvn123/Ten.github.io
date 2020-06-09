@@ -33,13 +33,14 @@ io.on('connection', function(socket){
 	});
 
 	socket.on('data', function(data){
-		console.log('message: ' + data);
+		var data_json = JSON.stringify(data)
+		console.log('message: ' + data_json);
 		//var now= moment();
 		let sql1 = `INSERT INTO data (temp, gas) values (?,?,?)` ;
 		
 		//var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
 		//var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
-		let todo = [data.temp, data.gas,'2020-06-10 1:59:10'];
+		let todo = [data_json.temp, data_json.gas,'2020-06-10 1:59:10'];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
