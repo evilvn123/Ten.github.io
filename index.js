@@ -22,7 +22,7 @@ let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_IN
 io.on('connection', function(socket){
 	console.log('a user connected');
 	conn.query(sql0, function (err) {
-        conn.on('error',function(err){
+        conn.on('error',function(err){	
           console.log('mysql error',err);
         });       
         console.log('Tao bang thanh cong');
@@ -37,8 +37,6 @@ io.on('connection', function(socket){
 		console.log('message: ' + data_json);
 		var now= moment();
 		let sql1 = `INSERT INTO data (temp, gas, time) values (?,?,?)` ;
-		
-		//var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
 		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
 		console.log(time);
 		let todo = [data.temp, data.gas, time];
@@ -46,9 +44,9 @@ io.on('connection', function(socket){
 			if (err) {
 			  return console.error(err.message);
 			}
-			// get inserted id
 			console.log('Todo Id:' + results.insertId);
 		  });
+		conn.end();
 	  });
 });
 
