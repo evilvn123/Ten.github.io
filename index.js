@@ -44,9 +44,9 @@ io.on('connection', function(socket){
 			if (err) {
 			  return console.error(err.message);
 			}
+			conn.release();
 			console.log('Todo Id:' + results.insertId);
 		  });
-		conn.end();
 	  });
 });
 
