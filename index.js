@@ -36,12 +36,12 @@ io.on('connection', function(socket){
 		var data_json = JSON.stringify(data)
 		console.log('message: ' + data_json);
 		var now= moment();
-		let sql1 = `INSERT INTO data (temp, gas) values (?,?)` ;
+		let sql1 = `INSERT INTO data (temp, gas, time) values (?,?,?)` ;
 		
 		//var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
 		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
 		console.log(time);
-		let todo = [data.temp, data.gas];
+		let todo = [data.temp, data.gas, time];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
