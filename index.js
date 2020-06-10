@@ -1,7 +1,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
-//const moment = require('moment-timezone');
+var moment = require('moment-timezone');
 
 app.use(express.static("public"));
 app.set("view engine", "ejs");
@@ -16,7 +16,6 @@ var conn = mysql.createConnection({
       user    : 'uo2i94d6ddzrqmqy',
       password: 'n4ZKdalk4QVP3KqgfdFc',
       database: 'bvfopzmpe3wvyhzvzip2',
-      timezone: 'utc+7'
 });
 let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, temp INT(10), gas INT(10), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE = InnoDB' ;
 
@@ -36,12 +35,12 @@ io.on('connection', function(socket){
 	socket.on('data', function(data){
 		var data_json = JSON.stringify(data)
 		console.log('message: ' + data_json);
-		//var now= moment();
-		let sql1 = `INSERT INTO data (temp, gas) values (?,?)` ;
+		var now= moment();
+		let sql1 = `INSERT INTO data (temp, gas, time) values (?,?,?)` ;
 		
 		//var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
-		//var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
-		let todo = [data.temp, data.gas];
+		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
+		let todo = [data.temp, data.gas, time];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
