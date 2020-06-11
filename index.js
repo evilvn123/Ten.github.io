@@ -25,9 +25,10 @@ io.on('connection', function(socket){
 	console.log('a user connected');
 
 	io.sockets.emit('server-send-data', {content: 'This content'});
-	socket.on('client-send-data', function(data){
-		io.sockets.emit('server-send-data', {content: data});
-	});
+	// socket.on('client-send-data', function(data){
+	// 	console.log(data);
+	// 	io.sockets.emit('server-send-data', {content: data});
+	// });
 
 
 	conn.query(sql0, function (err) {
@@ -41,7 +42,7 @@ io.on('connection', function(socket){
 	  console.log('user disconnected');
 	});
 
-	socket.on('data', function(data){
+	socket.on('client-send-data', function(data){
 		var data_json = JSON.stringify(data)
 		console.log('message: ' + data_json);
 		var now= moment();
@@ -55,6 +56,7 @@ io.on('connection', function(socket){
 			}
 			console.log('Todo Id:' + results.insertId);
 		  });
+		io.sockets.emit('server-send-data', {content: data});
 	  });
 });
 
