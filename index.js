@@ -23,6 +23,13 @@ let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_IN
 
 io.on('connection', function(socket){
 	console.log('a user connected');
+
+	io.sockets.emit('server-send-data', {content: 'This content'});
+	socket.on('client-send-data', function(data){
+		io.sockets.emit('server-send-data', {content: data});
+	});
+
+
 	conn.query(sql0, function (err) {
         conn.on('error',function(err){	
           console.log('mysql error',err);
