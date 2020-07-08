@@ -51,8 +51,9 @@ io.on('connection', function(socket){
 			console.log('Todo Id:' + results.insertId);
 		  });
 		
-	    });
-	    conn.query('SELECT COUNT(*) AS so_luong FROM data', function(err,result, fields){
+	});
+	socket.on('client-need-data', function(data){
+		conn.query('SELECT COUNT(*) AS so_luong FROM data', function(err,result, fields){
 			conn.on('error',function(err){
 				console.log('mysql error 179',err);
 			});
@@ -66,7 +67,9 @@ io.on('connection', function(socket){
 				});
 			}
 		});
-		
+
+	});
+	
 });
 
 
