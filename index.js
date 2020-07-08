@@ -43,15 +43,30 @@ io.on('connection', function(socket){
 		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
 		console.log(data_json.temp);
 		console.log(time);
-		let todo = [data.temp, data_json.gas, time];
+		let todo = [data.temp, data.gas, time];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
 			}
 			console.log('Todo Id:' + results.insertId);
 		  });
-		io.sockets.emit('server-send-data', {content: data});
-	  });
+		
+	    });
+	    conn.query('SELECT COUNT(*) AS so_luong FROM data', function(err,result, fields){
+			conn.on('error',function(err){
+				console.log('mysql error 179',err);
+			});
+			console.log(result)
+			//io.sockets.emit('server-send-data', {content: data});
+			if (result.so_luong > 50000){
+				conn.query('DELETE FROM data', function(err,result, fields){
+					conn.on('error',function(err){
+							console.log('mysql error 184',err);
+					});			
+				});
+			}
+		});
+		
 });
 
 
