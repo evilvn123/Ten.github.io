@@ -11,6 +11,10 @@ var server = require("http").Server(app);
 var io = require('socket.io')(server);
 server.listen(8080);
 
+var now= moment();
+var time=now.tz('Asia/Ho_Chi_Minh').format('HH:mm:ss');
+var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
+
 var conn = mysql.createConnection({
       host    : 'b6zr2pv6hb6js0e9tbrd-mysql.services.clever-cloud.com',
       user    : 'uaqscwtkqzmfltfb',
@@ -19,7 +23,7 @@ var conn = mysql.createConnection({
 });
 
 handleDisconnect();
-let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, temp INT(10), gas INT(10), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP) ENGINE = InnoDB' ;
+let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, temp INT(10), gas INT(10), time TIME, date DATE) ENGINE = InnoDB' ;
 
 io.on('connection', function(socket){
 	console.log('a user connected');
@@ -38,29 +42,28 @@ io.on('connection', function(socket){
 	socket.on('client-send-data', function(data){
 		var data_json = JSON.stringify(data)
 		console.log('message: ' + data_json);
-		var now= moment();
-		let sql1 = `INSERT INTO data (temp, gas, time) values (?,?,?)` ;
-		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
-		console.log(data_json.temp);
+		
+		let sql1 = `INSERT INTO data (temp, gas, time, date) values (?,?,?,?)` ;
+		
 		console.log(time);
-		let todo = [data.temp, data.gas, time];
-		conn.query(sql1, todo, (err, results, fields) => {
+		let todo = [data.temp, data.gas, time, date];
+		conn.query(sql1, todo, (err, result, fields) => {
 			if (err) {
 			  return console.error(err.message);
 			}
-			console.log('Todo Id:' + results.insertId);
+			console.log('Todo Id:' + result.insertId);
 		  });
 		
 	});
 	socket.on('client-need-data', function(data){
-		conn.query('SELECT COUNT(*) AS so_luong FROM data', function(err,result, fields){
+		conn.query('SELECT * FROM data WHERE DATE = ?',[date], function(err,results, fields){
 			conn.on('error',function(err){
 				console.log('mysql error 179',err);
 			});
-			console.log(result)
+			console.log(results)
 			//io.sockets.emit('server-send-data', {content: data});
-			if (result.so_luong > 50000){
-				conn.query('DELETE FROM data', function(err,result, fields){
+			if (results.so_luong > 50000){
+				conn.query('DELETE FROM data', function(err,results, fields){
 					conn.on('error',function(err){
 							console.log('mysql error 184',err);
 					});			
