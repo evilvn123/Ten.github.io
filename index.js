@@ -19,7 +19,7 @@ var conn = mysql.createConnection({
 });
 
 //handleDisconnect();
-let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, temp INT(10), gas INT(10), time varchar(50), date varchar(50)) ENGINE = InnoDB' ;
+let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, temp INT(10), gas INT(10), time TIMESTAMP) ENGINE = InnoDB' ;
 
 io.on('connection', function(socket){
 	console.log('a user connected');
@@ -48,8 +48,8 @@ io.on('connection', function(socket){
 		var data_json = JSON.stringify(data)
 		console.log('message: ' + data_json);
 		var now= moment();
-		let sql1 = `INSERT INTO data (temp, gas, time, date) values (?,?,?,?)` ;
-		var time=now.tz('Asia/Ho_Chi_Minh').format('HH:mm:ss').toString();
+		let sql1 = `INSERT INTO data (temp, gas, time) values (?,?,?)` ;
+		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
 		var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD').toString();
 		console.log(time);
 		let todo = [data_json, data_json, time, date];
@@ -58,20 +58,21 @@ io.on('connection', function(socket){
 			  return console.error(err.message);
 			}
 			console.log('Todo Id:' + results.insertId);
-		  });
-		con.query('SELECT COUNT(*) AS so_luong FROM data', function(err,result, fields){
-			con.on('error',function(err){
-				console.log('mysql error 179',err);
-			});
-			if (result.so_luong > 50000){
-				con.query('DELETE FROM data', function(err,result, fields){
-					con.on('error',function(err){
-							console.log('mysql error 184',err);
-					});			
-				});
-			}
 		});
 		io.sockets.emit('server-send-data', {content: data});
+		// con.query('SELECT COUNT(*) AS so_luong FROM data', function(err,result, fields){
+		// 	con.on('error',function(err){
+		// 		console.log('mysql error 179',err);
+		// 	});
+		// 	if (result.so_luong > 50000){
+		// 		con.query('DELETE FROM data', function(err,result, fields){
+		// 			con.on('error',function(err){
+		// 					console.log('mysql error 184',err);
+		// 			});			
+		// 		});
+		// 	}
+		// });
+		
 	  });
 });
 
