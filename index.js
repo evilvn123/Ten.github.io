@@ -61,7 +61,7 @@ io.on('connection', function(socket){
 				console.log('mysql error 179',err);
 			});
 			console.log(results)
-			//io.sockets.emit('server-send-data', {content: data});
+			io.sockets.emit('server-send-data', results);
 			if (results.so_luong > 50000){
 				conn.query('DELETE FROM data', function(err,results, fields){
 					conn.on('error',function(err){
