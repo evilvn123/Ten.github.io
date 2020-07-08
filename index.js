@@ -18,7 +18,7 @@ var conn = mysql.createConnection({
       database: 'bvfopzmpe3wvyhzvzip2',
 });
 
-handleDisconnect();
+//handleDisconnect();
 let sql0 = 'CREATE TABLE IF NOT EXISTS data (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT, temp INT(10), gas INT(10), time varchar(50), date varchar(50)) ENGINE = InnoDB' ;
 
 io.on('connection', function(socket){
@@ -80,27 +80,27 @@ app.get("/admin", function(req, res){
 	res.render("trangchu");
 })
 
-function handleDisconnect() {
-	conn = mysql.createConnection({
-		host    : 'bvfopzmpe3wvyhzvzip2-mysql.services.clever-cloud.com',
-		user    : 'uo2i94d6ddzrqmqy',
-		password: 'n4ZKdalk4QVP3KqgfdFc',
-		database: 'bvfopzmpe3wvyhzvzip2',
-    });
+// function handleDisconnect() {
+// 	conn = mysql.createConnection({
+// 		host    : 'bvfopzmpe3wvyhzvzip2-mysql.services.clever-cloud.com',
+// 		user    : 'uo2i94d6ddzrqmqy',
+// 		password: 'n4ZKdalk4QVP3KqgfdFc',
+// 		database: 'bvfopzmpe3wvyhzvzip2',
+//     });
 
-    conn.connect(function(err) {             
-	   if(err) {                                     
-		 console.log('error when connecting to db:', err);
-		 setTimeout(handleDisconnect, 2000); 
-	   }                                  
-    });                                     
-    conn.on('error', function(err) {
-	   console.log('db error', err);
-	   if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
-		 handleDisconnect();
-		 console.log("ket noi lai");                         
-	   } else {                                     
-		 throw err;                                  
-	   }
-    });
-}
+//     conn.connect(function(err) {             
+// 	   if(err) {                                     
+// 		 console.log('error when connecting to db:', err);
+// 		 setTimeout(handleDisconnect, 2000); 
+// 	   }                                  
+//     });                                     
+//     conn.on('error', function(err) {
+// 	   console.log('db error', err);
+// 	   if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+// 		 handleDisconnect();
+// 		 console.log("ket noi lai");                         
+// 	   } else {                                     
+// 		 throw err;                                  
+// 	   }
+//     });
+// }
