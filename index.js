@@ -37,12 +37,12 @@ io.on('connection', function(socket){
 	socket.on('disconnect', function(){
 	  console.log('user disconnected');
 	});
-	socket.on('client-need-data', function(data){
-		let sql = 'SELECT * FROM data';
-		conn.query(sql, (err, results)=>{
-			console.log(results.length)
-		})
-	});
+	// socket.on('client-need-data', function(data){
+	// 	let sql = 'SELECT * FROM data';
+	// 	conn.query(sql, (err, results)=>{
+	// 		console.log(results.length)
+	// 	})
+	// });
 
 	socket.on('client-send-data', function(data){
 		var data_json = JSON.stringify(data)
@@ -50,7 +50,7 @@ io.on('connection', function(socket){
 		var now= moment();
 		let sql1 = `INSERT INTO data (temp, gas, time) values (?,?,?)` ;
 		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
-		var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD').toString();
+		//var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD').toString();
 		console.log(time);
 		let todo = [data_json, data_json, time];
 		conn.query(sql1, todo, (err, results, fields) => {
