@@ -15,6 +15,7 @@ var now= moment();
 var time=now.tz('Asia/Ho_Chi_Minh').format('HH:mm:ss');
 var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
 
+
 var conn = mysql.createConnection({
       host    : 'b6zr2pv6hb6js0e9tbrd-mysql.services.clever-cloud.com',
       user    : 'uaqscwtkqzmfltfb',
@@ -53,6 +54,20 @@ io.on('connection', function(socket){
 			}
 			console.log('Todo Id:' + result.insertId);
 		  });
+		conn.query('SELECT * FROM data WHERE DATE = ?',[date], function(err,results, fields){
+			conn.on('error',function(err){
+				console.log('mysql error 179',err);
+			});
+			console.log(results)
+			io.sockets.emit('server-send-data', results);
+			if (results.so_luong > 50000){
+				conn.query('DELETE FROM data', function(err,results, fields){
+					conn.on('error',function(err){
+							console.log('mysql error 184',err);
+					});			
+				});
+			}
+		});
 		
 	});
 	socket.on('client-need-data', function(data){
