@@ -42,7 +42,7 @@ io.on('connection', function(socket){
 		let sql1 = `INSERT INTO data (temp, gas, time) values (?,?,?)` ;
 		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
 		console.log(time);
-		let todo = [data_json, data_json, time];
+		let todo = [data_json.temp, data_json.gas, time];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
