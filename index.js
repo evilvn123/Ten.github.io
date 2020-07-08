@@ -52,7 +52,7 @@ io.on('connection', function(socket){
 		var time=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
 		var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD').toString();
 		console.log(time);
-		let todo = [data_json, data_json, time, date];
+		let todo = [data_json, data_json, time];
 		conn.query(sql1, todo, (err, results, fields) => {
 			if (err) {
 			  return console.error(err.message);
