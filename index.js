@@ -12,10 +12,10 @@ var io = require('socket.io')(server);
 server.listen(8080);
 
 var conn = mysql.createConnection({
-      host    : 'bvfopzmpe3wvyhzvzip2-mysql.services.clever-cloud.com',
-      user    : 'uo2i94d6ddzrqmqy',
-      password: 'n4ZKdalk4QVP3KqgfdFc',
-      database: 'bvfopzmpe3wvyhzvzip2',
+      host    : 'b6zr2pv6hb6js0e9tbrd-mysql.services.clever-cloud.com',
+      user    : 'uaqscwtkqzmfltfb',
+      password: 'aE2kTkEkHbsAIqq13Z8j',
+      database: 'b6zr2pv6hb6js0e9tbrd',
 });
 
 handleDisconnect();
@@ -67,19 +67,19 @@ app.get("/admin", function(req, res){
 
 function handleDisconnect() {
 	conn = mysql.createConnection({
-		host    : 'bvfopzmpe3wvyhzvzip2-mysql.services.clever-cloud.com',
-		user    : 'uo2i94d6ddzrqmqy',
-		password: 'n4ZKdalk4QVP3KqgfdFc',
-		database: 'bvfopzmpe3wvyhzvzip2',
-   });
+		host    : 'b6zr2pv6hb6js0e9tbrd-mysql.services.clever-cloud.com',
+		user    : 'uaqscwtkqzmfltfb',
+		password: 'aE2kTkEkHbsAIqq13Z8j',
+		database: 'b6zr2pv6hb6js0e9tbrd',
+    });
 
-   conn.connect(function(err) {             
+    conn.connect(function(err) {             
 	   if(err) {                                     
 		 console.log('error when connecting to db:', err);
 		 setTimeout(handleDisconnect, 2000); 
 	   }                                  
    });                                     
-   conn.on('error', function(err) {
+    conn.on('error', function(err) {
 	   console.log('db error', err);
 	   if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
 		 handleDisconnect();
