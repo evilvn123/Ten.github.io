@@ -49,8 +49,8 @@ io.on('connection', function(socket){
 		console.log('message: ' + data_json);
 		var now= moment();
 		let sql1 = `INSERT INTO data (temp, gas, time, date) values (?,?,?,?)` ;
-		var time=now.tz('Asia/Ho_Chi_Minh').format('HH:mm:ss');
-		var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD');
+		var time=now.tz('Asia/Ho_Chi_Minh').format('HH:mm:ss').toString();
+		var date=now.tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD').toString();
 		console.log(time);
 		let todo = [data_json, data_json, time, date];
 		conn.query(sql1, todo, (err, results, fields) => {
